@@ -10,29 +10,6 @@ var Deflate = solfege.util.Class.create(function()
 }, 'solfege.bundle.compression.Deflate');
 var proto = Deflate.prototype;
 
-/**
- * The deflate object
- *
- * @type {Deflate}
- * @api private
- */
-proto.deflate;
-
-/**
- * Get a deflate object
- *
- * @return  {Deflate}       The deflate instance
- * @api private
- */
-proto.getDeflate = function()
-{
-    if (!this.deflate) {
-        this.deflate = zlib.createDeflate();
-    }
-
-    return this.deflate;
-};
-
 
 /**
  * The server middleware
@@ -64,7 +41,7 @@ proto.middleware = function*(request, response, next)
 
     // Compression
     var Stream = require('stream');
-    var deflate = this.getDeflate();
+    var deflate = zlib.createDeflate();
     if (response.body instanceof Stream) {
         response.body.pipe(deflate);
     } else {

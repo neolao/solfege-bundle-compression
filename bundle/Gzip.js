@@ -10,29 +10,6 @@ var Gzip = solfege.util.Class.create(function()
 }, 'solfege.bundle.compression.Gzip');
 var proto = Gzip.prototype;
 
-/**
- * The Gzip object
- *
- * @type {Gzip}
- * @api private
- */
-proto.gzip;
-
-/**
- * Get a gzip object
- *
- * @return  {Gzip}      The gzip instance
- * @api private
- */
-proto.getGzip = function()
-{
-    if (!this.gzip) {
-        this.gzip = zlib.createGzip();
-    }
-
-    return this.gzip;
-};
-
 
 /**
  * The server middleware
@@ -64,7 +41,7 @@ proto.middleware = function*(request, response, next)
 
     // Compression
     var Stream = require('stream');
-    var gzip = this.getGzip();
+    var gzip = zlib.createGzip();
     if (response.body instanceof Stream) {
         response.body.pipe(gzip);
     } else {
