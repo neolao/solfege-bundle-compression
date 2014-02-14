@@ -8,7 +8,7 @@ var zlib = require('zlib');
 var Gzip = solfege.util.Class.create(function()
 {
 }, 'solfege.bundle.compression.Gzip');
-var proto = Deflate.prototype;
+var proto = Gzip.prototype;
 
 /**
  * The Gzip object
@@ -77,4 +77,4 @@ proto.middleware = function*(request, response, next)
 };
 
 
-module.exports = Deflate;
+module.exports = Gzip;
